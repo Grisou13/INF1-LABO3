@@ -34,27 +34,42 @@ int main() {
    const unsigned short DIRECTION_BAS = 4;
    const unsigned short DISTANCE_DEPLACEMENT = 1;
    
-   
-   unsigned int x,y;
-   unsigned int compteur, nbrExperience;
+   unsigned nbrExperiences;
    
    //Demander à l'utilisateur d'entrer le nombre d'expériences à effectuer
    do{
       cout << "Veuillez entrer un nombre d'experience " 
            << "( entre " << NBR_EXP_MIN << " et " << NBR_EXP_MAX << "): ";
-      if (not(cin >> nbrExperience))
+      if (not(cin >> nbrExperiences))
       {
          cin.clear();
          cin.ignore(INT_MAX,'\n');
       }
-   }while(nbrExperience <NBR_EXP_MIN || nbrExperience > NBR_EXP_MAX);
+   }while(nbrExperiences <NBR_EXP_MIN || nbrExperiences > NBR_EXP_MAX);
+   
+   int x,y;
+   unsigned int longueur;
+   double longueurMoyenne = 0;
    
    //Effectuer les expériences
    for(int i = TAILLE_GRILLE_MIN; i < TAILLE_GRILLE_MAX; i += TAILLE_GRILLE_INCREMENT){
-      for(int j = 0; j < nbrExperience; j ++){
-         
+      for(int j = 0; j < nbrExperiences; ++j){
+         x = y = 0;
+         while(true/*condition*/){
+            //Déterminer direction
+            
+            //Déplacer
+            
+            //Si nouvelle direction = bord, rebondir et incrémenter le compteur de bord
+            
+            ++longueur;
+         } 
+         //Ajouter longueur à la longueur moyenne
+      //Ajouter les compteurs de cotés à la moyenne
       }
+      //Afficher les moyennes pour cette valeur de N
    }
+   
    
    
    return EXIT_SUCCESS;

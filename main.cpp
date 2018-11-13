@@ -15,12 +15,39 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <climits>
 
 using namespace std;
 
 int main() {
-  
    
-   cout << "Hello world" << endl;
+   const unsigned int NBR_EXP_MIN = 1000;
+   const unsigned int NBR_EXP_MAX = 100000;
+   
+   const unsigned int COTE_MAX = 50;
+   const unsigned int COTE_MIN = 2;
+   const unsigned int COTE_INCREMENT = 2;
+   
+   const unsigned short DIRECTION_DROITE = 1;
+   const unsigned short DIRECTION_GAUCHE = 2;
+   const unsigned short DIRECTION_HAUT = 3;
+   const unsigned short DIRECTION_BAS = 4;
+   const unsigned short DISTANCE_DEPLACEMENT = 1;
+   
+   
+   unsigned int x,y;
+   unsigned int compteur, nbrExperience;
+   
+   do{
+      cout << "Veuillez entrer un nombre d'experience " 
+           << "( entre " << NBR_EXP_MIN << " et " << NBR_EXP_MAX << "): ";
+      if (not(cin >> nbrExperience))
+      {
+         cin.clear();
+         cin.ignore(INT_MAX,'\n');
+      }
+   }while(nbrExperience <NBR_EXP_MIN || nbrExperience > NBR_EXP_MAX);
+   
+   
    return EXIT_SUCCESS;
 }

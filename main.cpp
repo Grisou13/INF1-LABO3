@@ -15,7 +15,9 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <iomanip>
 #include <climits>
+#include <ctime> //Utilisé pour générer des nombres pseudo-aléatoires
 
 using namespace std;
 
@@ -48,29 +50,53 @@ int main() {
    }while(nbrExperiences <NBR_EXP_MIN || nbrExperiences > NBR_EXP_MAX);
    
    int x,y;
+   short direction; //1=gauche; 2=droite; 3=haut; 4=bas
    unsigned int longueur;
    double longueurMoyenne = 0;
+   bool droiteTouch;
+   bool gaucheTouch;
+   bool hautTouch;
+   bool basTouch;
+   
+   srand((unsigned)time(0));
    
    //Effectuer les expériences
-   for(int i = TAILLE_GRILLE_MIN; i < TAILLE_GRILLE_MAX; i += TAILLE_GRILLE_INCREMENT){
-      for(int j = 0; j < nbrExperiences; ++j){
+   for(unsigned tailleGrille = TAILLE_GRILLE_MIN; tailleGrille < TAILLE_GRILLE_MAX; tailleGrille += TAILLE_GRILLE_INCREMENT){
+      for(unsigned j = 0; j < nbrExperiences; ++j){
          x = y = 0;
-         while(true/*condition*/){
-            //Déterminer direction
+         droiteTouch = gaucheTouch = hautTouch = basTouch = false;
+         while(longueur < 8/*!(droiteTouch && gaucheTouch && hautTouch && basTouch)*/){
             
-            //Déplacer
-            
+            //Déterminer direction et effectuer le déplacement
+            direction = short(rand() % 4 + 1);
+            switch(direction){
+               case DIRECTION_GAUCHE: 
+                  y -= DISTANCE_DEPLACEMENT; break;
+               case DIRECTION_DROITE: 
+                  y += DISTANCE_DEPLACEMENT; break;
+               case DIRECTION_HAUT: 
+                  x += DISTANCE_DEPLACEMENT; break;
+               case DIRECTION_BAS: 
+                  x -= DISTANCE_DEPLACEMENT; break;
+            }         
             //Si nouvelle direction = bord, rebondir et incrémenter le compteur de bord
-            
+            if(false/*condition*/){
+               //Rebondir
+               ++longueur;
+            }
             ++longueur;
          } 
-         //Ajouter longueur à la longueur moyenne
+         longueurMoyenne += (double)longueur/nbrExperiences;
+         longueur = 0;
       //Ajouter les compteurs de cotés à la moyenne
       }
-      //Afficher les moyennes pour cette valeur de N
+      cout << setprecision(2) << fixed << "Pour une grille de " << tailleGrille
+           << " cases, " << "La longueur moyenne du parcours du robot est " 
+           << longueurMoyenne << endl;
+      longueurMoyenne = 0;
    }
    
    
-   
+   system("PAUSE");
    return EXIT_SUCCESS;
 }

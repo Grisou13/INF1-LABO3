@@ -38,7 +38,7 @@ int main() {
    
    unsigned nbrExperiences;
    
-   nbrExperiences = 1000;
+   nbrExperiences = 10000;
    //Demander à l'utilisateur d'entrer le nombre d'expériences à effectuer
    /*do{
       cout << "Veuillez entrer un nombre d'experience " 
@@ -131,7 +131,6 @@ int main() {
            << longueurMoyenne << endl;
       longueurMoyenne = 0;
    }
-   cout << "Nombres de touche unique sur"
    
    
    

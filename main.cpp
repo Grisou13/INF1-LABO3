@@ -84,7 +84,7 @@ int main() {
                   y -= DISTANCE_DEPLACEMENT; break;
             }         
             //Si nouvelle direction = bord, rebondir et incrémenter le compteur de bord
-            if(x == 0 || x == tailleGrille || y == 0 || y == tailleGrille){
+            if(x % tailleGrille == 0 ||  y % tailleGrille == 0){
                //Rebondir
                switch (direction){
                   case DIRECTION_GAUCHE:

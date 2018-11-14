@@ -66,6 +66,13 @@ int main() {
    
    int prevBord;
    
+   int maxDroiteTouch,
+       maxGaucheTouch,
+       maxHautTouch,
+       maxBasTouch;
+   
+   int moyenneTouch;
+   
    srand((unsigned)time(0));
    
    //Effectuer les expériences
@@ -117,6 +124,33 @@ int main() {
                      break;
                      
                }
+               
+               if(direction == prevBord)
+               {
+                  switch(direction){
+                     case DIRECTION_GAUCHE:
+                        nbGaucheTouch++;
+                        break;
+                     case DIRECTION_DROITE:
+                        nbDroiteTouch++;
+                        break;
+                     case DIRECTION_HAUT:
+                        nbHautTouch++;
+                        break;
+                     case DIRECTION_BAS:
+                        nbBasTouch++;
+                        break;
+                  }
+               }
+               else
+               {
+                  maxGaucheTouch=nbGaucheTouch;
+                  maxDroiteTouch=nbDroiteTouch;
+                  maxHautTouch=nbHautTouch;
+                  maxBasTouch=nbBasTouch;
+                  
+                  nbGaucheTouch = nbDroiteTouch = nbHautTouch = nbBasTouch =0;
+               }
                // Incrément en cas de rebond
                ++longueur;
             }
@@ -126,6 +160,7 @@ int main() {
          }
          
          longueurMoyenne += (double)longueur/nbrExperiences;
+         
       //Ajouter les compteurs de cotés à la moyenne
       }
       cout << "{" << tailleGrille << "," << longueurMoyenne << "},";

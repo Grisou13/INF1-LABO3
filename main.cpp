@@ -26,7 +26,7 @@ int main() {
    const unsigned int NBR_EXP_MIN = 1000;
    const unsigned int NBR_EXP_MAX = 100000;
    
-   const unsigned int TAILLE_GRILLE_MAX = 50;
+   const unsigned int TAILLE_GRILLE_MAX = 10; //50
    const unsigned int TAILLE_GRILLE_MIN = 2;
    const unsigned int TAILLE_GRILLE_INCREMENT = 2;
    
@@ -38,8 +38,9 @@ int main() {
    
    unsigned nbrExperiences;
    
+   nbrExperiences = 100000;
    //Demander à l'utilisateur d'entrer le nombre d'expériences à effectuer
-   do{
+   /*do{
       cout << "Veuillez entrer un nombre d'experience " 
            << "( entre " << NBR_EXP_MIN << " et " << NBR_EXP_MAX << "): ";
       if (not(cin >> nbrExperiences))
@@ -47,31 +48,31 @@ int main() {
          cin.clear();
          cin.ignore(INT_MAX,'\n');
       }
-   }while(nbrExperiences <NBR_EXP_MIN || nbrExperiences > NBR_EXP_MAX);
+   }while(nbrExperiences <NBR_EXP_MIN || nbrExperiences > NBR_EXP_MAX); */
    
    int x,y;
    short direction; //1=gauche; 2=droite; 3=haut; 4=bas
    unsigned int longueur;
    double longueurMoyenne = 0;
-   bool droiteTouch;
-   bool gaucheTouch;
-   bool hautTouch;
-   bool basTouch;
-   int nbDroiteTouch;
-   int nbGaucheTouch;
-   int nbHautTouch;
-   int nbBasTouch;
+   bool droiteTouch,
+        gaucheTouch,
+        hautTouch,
+        basTouch;
+   int nbDroiteTouch,
+       nbGaucheTouch,
+       nbHautTouch,
+       nbBasTouch;
    
    srand((unsigned)time(0));
    
    //Effectuer les expériences
-   for(unsigned tailleGrille = TAILLE_GRILLE_MIN; tailleGrille < TAILLE_GRILLE_MAX; tailleGrille += TAILLE_GRILLE_INCREMENT){
+   for(unsigned tailleGrille = TAILLE_GRILLE_MIN; tailleGrille <= TAILLE_GRILLE_MAX; tailleGrille += TAILLE_GRILLE_INCREMENT){
       for(unsigned j = 0; j < nbrExperiences; ++j){
-         longueurMoyenne = 0;
+         longueur = 0;
          x = y = tailleGrille / 2;
          droiteTouch = gaucheTouch = hautTouch = basTouch = false;
-         while(droiteTouch && gaucheTouch && hautTouch && basTouch){
-            
+         while(!(droiteTouch && gaucheTouch && hautTouch && basTouch)){
+            // - cout << "pos (" << x << "," << y << ")" << endl;
             //Déterminer direction et effectuer le déplacement
             direction = short(rand() % 4 + 1);
             switch(direction){
@@ -83,6 +84,8 @@ int main() {
                   y += DISTANCE_DEPLACEMENT; break;
                case DIRECTION_BAS: 
                   y -= DISTANCE_DEPLACEMENT; break;
+               default:
+                  continue;
             }         
             //Si nouvelle direction = bord, rebondir et incrémenter le compteur de bord
             if(x % tailleGrille == 0 ||  y % tailleGrille == 0){
@@ -115,9 +118,12 @@ int main() {
             }
             // Incrément de fonctionnement normal
             ++longueur;
+            // - cout << "Direction: " << direction << endl;
+            // - cout << "pos après(" << x << "," << y << ")" << endl;
          }
+         // - cout << "Longeur total: " << longueur << endl;
+         // - cout << "longueurMoyenne: " << longueurMoyenne << endl;
          longueurMoyenne += (double)longueur/nbrExperiences;
-         longueur = 0;
       //Ajouter les compteurs de cotés à la moyenne
       }
       cout << setprecision(2) << fixed << "Pour une grille de " << tailleGrille

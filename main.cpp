@@ -57,6 +57,10 @@ int main() {
    bool gaucheTouch;
    bool hautTouch;
    bool basTouch;
+   int nbDroiteTouch;
+   int nbGaucheTouch;
+   int nbHautTouch;
+   int nbBasTouch;
    
    srand((unsigned)time(0));
    
@@ -84,13 +88,25 @@ int main() {
                //Rebondir
                switch (direction){
                   case DIRECTION_GAUCHE:
-                     x += DISTANCE_DEPLACEMENT; break;
+                     x += DISTANCE_DEPLACEMENT; 
+                     gaucheTouch=true;
+                     nbGaucheTouch++;
+                     break;
                   case DIRECTION_DROITE:
-                     x -= DISTANCE_DEPLACEMENT; break;
+                     x -= DISTANCE_DEPLACEMENT; 
+                     droiteTouch=true;
+                     nbDroiteTouch++;
+                     break;
                   case DIRECTION_HAUT:
-                     y -= DISTANCE_DEPLACEMENT; break;
+                     y -= DISTANCE_DEPLACEMENT; 
+                     hautTouch=true;
+                     nbHautTouch++;
+                     break;
                   case DIRECTION_BAS:
-                     y += DISTANCE_DEPLACEMENT; break;
+                     y += DISTANCE_DEPLACEMENT; 
+                     basTouch=true;
+                     nbBasTouch++;
+                     break;
                      
                }
                ++longueur;

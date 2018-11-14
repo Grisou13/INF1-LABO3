@@ -7,13 +7,13 @@ CND_BASEDIR=`pwd`
 CND_BUILDDIR=build
 CND_DISTDIR=dist
 # Debug configuration
-CND_PLATFORM_Debug=GNU-Linux
-CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux
-CND_ARTIFACT_NAME_Debug=template_netbeans
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/template_netbeans
-CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux/package
-CND_PACKAGE_NAME_Debug=templatenetbeans.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/templatenetbeans.tar
+CND_PLATFORM_Debug=MinGW-Windows
+CND_ARTIFACT_DIR_Debug=dist/Debug/MinGW-Windows
+CND_ARTIFACT_NAME_Debug=inf1-labo3
+CND_ARTIFACT_PATH_Debug=dist/Debug/MinGW-Windows/inf1-labo3
+CND_PACKAGE_DIR_Debug=dist/Debug/MinGW-Windows/package
+CND_PACKAGE_NAME_Debug=inf1-labo3.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/MinGW-Windows/package/inf1-labo3.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux

@@ -26,7 +26,7 @@ int main() {
    const unsigned int NBR_EXP_MIN = 1000;
    const unsigned int NBR_EXP_MAX = 100000;
    
-   const unsigned int TAILLE_GRILLE_MAX = 10; //50
+   const unsigned int TAILLE_GRILLE_MAX = 50; //50
    const unsigned int TAILLE_GRILLE_MIN = 2;
    const unsigned int TAILLE_GRILLE_INCREMENT = 2;
    
@@ -38,7 +38,7 @@ int main() {
    
    unsigned nbrExperiences;
    
-   nbrExperiences = 100000;
+   nbrExperiences = 1000;
    //Demander à l'utilisateur d'entrer le nombre d'expériences à effectuer
    /*do{
       cout << "Veuillez entrer un nombre d'experience " 
@@ -58,6 +58,7 @@ int main() {
         gaucheTouch,
         hautTouch,
         basTouch;
+   
    int nbDroiteTouch,
        nbGaucheTouch,
        nbHautTouch,
@@ -71,8 +72,8 @@ int main() {
          longueur = 0;
          x = y = tailleGrille / 2;
          droiteTouch = gaucheTouch = hautTouch = basTouch = false;
+         nbHautTouch = nbDroiteTouch = nbGaucheTouch = nbBasTouch = 0;
          while(!(droiteTouch && gaucheTouch && hautTouch && basTouch)){
-            // - cout << "pos (" << x << "," << y << ")" << endl;
             //Déterminer direction et effectuer le déplacement
             direction = short(rand() % 4 + 1);
             switch(direction){
@@ -118,19 +119,19 @@ int main() {
             }
             // Incrément de fonctionnement normal
             ++longueur;
-            // - cout << "Direction: " << direction << endl;
-            // - cout << "pos après(" << x << "," << y << ")" << endl;
+            
          }
-         // - cout << "Longeur total: " << longueur << endl;
-         // - cout << "longueurMoyenne: " << longueurMoyenne << endl;
+         
          longueurMoyenne += (double)longueur/nbrExperiences;
       //Ajouter les compteurs de cotés à la moyenne
       }
+      cout << "{" << tailleGrille << "," << longueurMoyenne << "},";
       cout << setprecision(2) << fixed << "Pour une grille de " << tailleGrille
            << " cases, " << "La longueur moyenne du parcours du robot est " 
            << longueurMoyenne << endl;
       longueurMoyenne = 0;
    }
+   cout << "Nombres de touche unique sur"
    
    
    

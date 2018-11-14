@@ -64,6 +64,8 @@ int main() {
        nbHautTouch,
        nbBasTouch;
    
+   int prevBord;
+   
    srand((unsigned)time(0));
    
    //Effectuer les expériences
@@ -73,6 +75,7 @@ int main() {
          x = y = tailleGrille / 2;
          droiteTouch = gaucheTouch = hautTouch = basTouch = false;
          nbHautTouch = nbDroiteTouch = nbGaucheTouch = nbBasTouch = 0;
+         prevBord=0;
          while(!(droiteTouch && gaucheTouch && hautTouch && basTouch)){
             //Déterminer direction et effectuer le déplacement
             direction = short(rand() % 4 + 1);
@@ -95,22 +98,22 @@ int main() {
                   case DIRECTION_GAUCHE:
                      x += DISTANCE_DEPLACEMENT; 
                      gaucheTouch=true;
-                     nbGaucheTouch++;
+                     prevBord=DIRECTION_GAUCHE;
                      break;
                   case DIRECTION_DROITE:
                      x -= DISTANCE_DEPLACEMENT; 
                      droiteTouch=true;
-                     nbDroiteTouch++;
+                     prevBord=DIRECTION_DROITE;
                      break;
                   case DIRECTION_HAUT:
                      y -= DISTANCE_DEPLACEMENT; 
                      hautTouch=true;
-                     nbHautTouch++;
+                     prevBord=DIRECTION_HAUT;
                      break;
                   case DIRECTION_BAS:
                      y += DISTANCE_DEPLACEMENT; 
                      basTouch=true;
-                     nbBasTouch++;
+                     prevBord=DIRECTION_BAS;
                      break;
                      
                }

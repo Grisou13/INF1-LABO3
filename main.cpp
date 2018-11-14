@@ -71,17 +71,28 @@ int main() {
             direction = short(rand() % 4 + 1);
             switch(direction){
                case DIRECTION_GAUCHE: 
-                  y -= DISTANCE_DEPLACEMENT; break;
-               case DIRECTION_DROITE: 
-                  y += DISTANCE_DEPLACEMENT; break;
-               case DIRECTION_HAUT: 
-                  x += DISTANCE_DEPLACEMENT; break;
-               case DIRECTION_BAS: 
                   x -= DISTANCE_DEPLACEMENT; break;
+               case DIRECTION_DROITE: 
+                  x += DISTANCE_DEPLACEMENT; break;
+               case DIRECTION_HAUT: 
+                  y += DISTANCE_DEPLACEMENT; break;
+               case DIRECTION_BAS: 
+                  y -= DISTANCE_DEPLACEMENT; break;
             }         
             //Si nouvelle direction = bord, rebondir et incrémenter le compteur de bord
-            if(false/*condition*/){
+            if(x == 0 || x == tailleGrille || y == 0 || y == tailleGrille){
                //Rebondir
+               switch (direction){
+                  case DIRECTION_GAUCHE:
+                     x += DISTANCE_DEPLACEMENT; break;
+                  case DIRECTION_DROITE:
+                     x -= DISTANCE_DEPLACEMENT; break;
+                  case DIRECTION_HAUT:
+                     y -= DISTANCE_DEPLACEMENT; break;
+                  case DIRECTION_BAS:
+                     y += DISTANCE_DEPLACEMENT; break;
+                     
+               }
                ++longueur;
             }
             ++longueur;

@@ -67,9 +67,10 @@ int main() {
    //Effectuer les expériences
    for(unsigned tailleGrille = TAILLE_GRILLE_MIN; tailleGrille < TAILLE_GRILLE_MAX; tailleGrille += TAILLE_GRILLE_INCREMENT){
       for(unsigned j = 0; j < nbrExperiences; ++j){
-         x = y = 0;
+         longueurMoyenne = 0;
+         x = y = tailleGrille / 2;
          droiteTouch = gaucheTouch = hautTouch = basTouch = false;
-         while(longueur < 8/*!(droiteTouch && gaucheTouch && hautTouch && basTouch)*/){
+         while(droiteTouch && gaucheTouch && hautTouch && basTouch){
             
             //Déterminer direction et effectuer le déplacement
             direction = short(rand() % 4 + 1);
@@ -109,10 +110,12 @@ int main() {
                      break;
                      
                }
+               // Incrément en cas de rebond
                ++longueur;
             }
+            // Incrément de fonctionnement normal
             ++longueur;
-         } 
+         }
          longueurMoyenne += (double)longueur/nbrExperiences;
          longueur = 0;
       //Ajouter les compteurs de cotés à la moyenne
@@ -124,6 +127,6 @@ int main() {
    }
    
    
-   system("PAUSE");
+   
    return EXIT_SUCCESS;
 }

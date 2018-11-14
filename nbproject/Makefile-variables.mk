@@ -17,11 +17,11 @@ CND_PACKAGE_PATH_Debug=dist/Debug/MinGW-Windows/package/inf1-labo3.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux
-CND_ARTIFACT_NAME_Release=template_netbeans
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/template_netbeans
+CND_ARTIFACT_NAME_Release=labo03
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/labo03
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux/package
-CND_PACKAGE_NAME_Release=templatenetbeans.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/templatenetbeans.tar
+CND_PACKAGE_NAME_Release=labo03.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/labo03.tar
 #
 # include compiler specific variables
 #

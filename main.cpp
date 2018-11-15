@@ -48,7 +48,7 @@ int main() {
    
    unsigned nbrExperiences;
    
-   nbrExperiences = 1;
+   nbrExperiences = 1000;
    //Demander à l'utilisateur d'entrer le nombre d'expériences à effectuer
    /*do{
       cout << "Veuillez entrer un nombre d'experience " 
@@ -124,33 +124,19 @@ int main() {
                   switch(direction)
                   {
                      case DIRECTION_GAUCHE:
-                        if(nbGaucheTouch > maxNbGaucheTouch)
-                        {
-                           maxNbGaucheTouch = nbGaucheTouch;
-                           cout << maxNbGaucheTouch << endl;
-                        }
                         nbGaucheTouch = 0;
                         break;
                      case DIRECTION_DROITE:
-                        if(nbDroiteTouch > maxNbDroiteTouch)
-                        {
-                           maxNbDroiteTouch = nbDroiteTouch;
-                        }
                         nbDroiteTouch = 0;
                         break;
                      case DIRECTION_HAUT:
-                        if(nbHautTouch > maxNbHautTouch)
-                        {
-                           maxNbHautTouch = nbHautTouch;
-                        }  
+                       
+                          
                         nbHautTouch = 0;
                         break;
                      case DIRECTION_BAS:
-                        if(nbBasTouch > maxNbBasTouch)
-                        {
-                           maxNbBasTouch = nbBasTouch;
-                        }
                         nbBasTouch = 0;
+                        break;
                   }
                }
                
@@ -161,25 +147,37 @@ int main() {
                      x += DISTANCE_DEPLACEMENT; 
                      gaucheTouch=true;
                      nbGaucheTouch++;
-                     cout << "2 " << nbGaucheTouch << endl;
+                     if(nbGaucheTouch > maxNbGaucheTouch)
+                        {
+                           maxNbGaucheTouch = nbGaucheTouch;
+                        }
                      break;
                   case DIRECTION_DROITE:
                      x -= DISTANCE_DEPLACEMENT; 
                      droiteTouch=true;
                      nbDroiteTouch++;
-                     cout << "1 " << nbDroiteTouch << endl;
+                     if(nbDroiteTouch > maxNbDroiteTouch)
+                        {
+                           maxNbDroiteTouch = nbDroiteTouch;
+                        }
                      break;
                   case DIRECTION_HAUT:
                      y -= DISTANCE_DEPLACEMENT; 
                      hautTouch=true;
                      nbHautTouch++;
-                                          cout << "3 " << nbHautTouch << endl;
+                     if(nbHautTouch > maxNbHautTouch)
+                     {
+                           maxNbHautTouch = nbHautTouch;
+                     }
                      break;
                   case DIRECTION_BAS:
                      y += DISTANCE_DEPLACEMENT; 
                      basTouch=true;
                      nbBasTouch++;
-                                          cout << "4 " << nbBasTouch << endl;
+                     if(nbBasTouch > maxNbBasTouch)
+                        {
+                           maxNbBasTouch = nbBasTouch;
+                        }
                      break;
                      
                }
@@ -204,10 +202,10 @@ int main() {
        maxNbHautTouch<< " " <<
        maxNbBasTouch << " - " << longueur << endl;
          
-         moyenneNbGaucheTouch += (double)maxNbGaucheTouch / nbrExperiences;
-         moyenneNbDroiteTouch += (double)maxNbDroiteTouch / nbrExperiences;
-         moyenneNbHautTouch += (double)maxNbHautTouch / nbrExperiences;
-         moyenneNbBasTouch += (double)maxNbBasTouch / nbrExperiences;
+         moyenneNbGaucheTouch += (double)(maxNbGaucheTouch - 1) / nbrExperiences;
+         moyenneNbDroiteTouch += (double)(maxNbDroiteTouch - 1)/ nbrExperiences;
+         moyenneNbHautTouch += (double)(maxNbHautTouch - 1) / nbrExperiences;
+         moyenneNbBasTouch += (double)(maxNbBasTouch - 1)/ nbrExperiences;
          
          longueurMoyenne += (double)longueur/nbrExperiences;
       //Ajouter les compteurs de cotés à la moyenne

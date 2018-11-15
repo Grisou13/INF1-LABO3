@@ -26,7 +26,7 @@ int main() {
    const unsigned int NBR_EXP_MIN = 1000;
    const unsigned int NBR_EXP_MAX = 100000;
    
-   const unsigned int TAILLE_GRILLE_MAX = 50; //50
+   const unsigned int TAILLE_GRILLE_MAX = 4; //50
    const unsigned int TAILLE_GRILLE_MIN = 2;
    const unsigned int TAILLE_GRILLE_INCREMENT = 2;
    
@@ -38,7 +38,7 @@ int main() {
    
    unsigned nbrExperiences;
    
-   nbrExperiences = 10000;
+   nbrExperiences = 1;
    //Demander à l'utilisateur d'entrer le nombre d'expériences à effectuer
    /*do{
       cout << "Veuillez entrer un nombre d'experience " 
@@ -53,7 +53,7 @@ int main() {
    int x,y;
    short direction; //1=gauche; 2=droite; 3=haut; 4=bas
    unsigned int longueur;
-   double longueurMoyenne = 0;
+   double longueurMoyenne;
    bool droiteTouch,
         gaucheTouch,
         hautTouch,
@@ -64,18 +64,32 @@ int main() {
        nbHautTouch,
        nbBasTouch;
    
+   int maxNbDroiteTouch,
+       maxNbGaucheTouch,
+       maxNbHautTouch,
+       maxNbBasTouch;
+   
+   double moyenneNbDroiteTouch,
+          moyenneNbGaucheTouch,
+          moyenneNbHautTouch,
+          moyenneNbBasTouch;
+   
    int prevBord;
    
    srand((unsigned)time(0));
    
    //Effectuer les expériences
    for(unsigned tailleGrille = TAILLE_GRILLE_MIN; tailleGrille <= TAILLE_GRILLE_MAX; tailleGrille += TAILLE_GRILLE_INCREMENT){
+      longueurMoyenne = 0;
+      moyenneNbDroiteTouch = moyenneNbGaucheTouch = moyenneNbHautTouch = moyenneNbBasTouch = 0;
+      
       for(unsigned j = 0; j < nbrExperiences; ++j){
          longueur = 0;
          x = y = tailleGrille / 2;
          droiteTouch = gaucheTouch = hautTouch = basTouch = false;
          nbHautTouch = nbDroiteTouch = nbGaucheTouch = nbBasTouch = 0;
          prevBord=0;
+         maxNbHautTouch = maxNbDroiteTouch = maxNbGaucheTouch = maxNbBasTouch = 0;
          while(!(droiteTouch && gaucheTouch && hautTouch && basTouch)){
             //Déterminer direction et effectuer le déplacement
             direction = short(rand() % 4 + 1);
@@ -91,51 +105,158 @@ int main() {
                default:
                   continue;
             }         
+            
+            
             //Si nouvelle direction = bord, rebondir et incrémenter le compteur de bord
             if(x % tailleGrille == 0 ||  y % tailleGrille == 0){
+               
+              
+               if(prevBord != direction)
+               {
+                  switch(direction)
+                  {
+                     case DIRECTION_GAUCHE:
+                        if(nbGaucheTouch > maxNbGaucheTouch)
+                        {
+                           maxNbGaucheTouch = nbGaucheTouch;
+                           cout << maxNbGaucheTouch << endl;
+                        }
+                        nbGaucheTouch = 0;
+                        break;
+                     case DIRECTION_DROITE:
+                        if(nbDroiteTouch > maxNbDroiteTouch)
+                        {
+                           maxNbDroiteTouch = nbDroiteTouch;
+                        }
+                        nbDroiteTouch = 0;
+                        break;
+                     case DIRECTION_HAUT:
+                        if(nbHautTouch > maxNbHautTouch)
+                        {
+                           maxNbHautTouch = nbHautTouch;
+                        }  
+                        nbHautTouch = 0;
+                        break;
+                     case DIRECTION_BAS:
+                        if(nbBasTouch > maxNbBasTouch)
+                        {
+                           maxNbBasTouch = nbBasTouch;
+                        }
+                        nbBasTouch = 0;
+                  }
+               }
+               
+               
                //Rebondir
                switch (direction){
                   case DIRECTION_GAUCHE:
                      x += DISTANCE_DEPLACEMENT; 
                      gaucheTouch=true;
-                     prevBord=DIRECTION_GAUCHE;
+                     nbGaucheTouch++;
+                     cout << "2 " << nbGaucheTouch << endl;
                      break;
                   case DIRECTION_DROITE:
                      x -= DISTANCE_DEPLACEMENT; 
                      droiteTouch=true;
-                     prevBord=DIRECTION_DROITE;
+                     nbDroiteTouch++;
+                     cout << "1 " << nbDroiteTouch << endl;
                      break;
                   case DIRECTION_HAUT:
                      y -= DISTANCE_DEPLACEMENT; 
                      hautTouch=true;
-                     prevBord=DIRECTION_HAUT;
+                     nbHautTouch++;
+                                          cout << "3 " << nbHautTouch << endl;
                      break;
                   case DIRECTION_BAS:
                      y += DISTANCE_DEPLACEMENT; 
                      basTouch=true;
-                     prevBord=DIRECTION_BAS;
+                     nbBasTouch++;
+                                          cout << "4 " << nbBasTouch << endl;
                      break;
                      
                }
+               
+               
+               
+               prevBord = direction;
+               
+               
+               
                // Incrément en cas de rebond
                ++longueur;
+               
+               
             }
             // Incrément de fonctionnement normal
             ++longueur;
             
          }
          
+         cout << maxNbDroiteTouch << " " <<
+       maxNbGaucheTouch << " " <<
+       maxNbHautTouch<< " " <<
+       maxNbBasTouch << " - " << longueur << endl;
+         
+         moyenneNbGaucheTouch += (double)maxNbGaucheTouch / nbrExperiences;
+         moyenneNbDroiteTouch += (double)maxNbDroiteTouch / nbrExperiences;
+         moyenneNbHautTouch += (double)maxNbHautTouch / nbrExperiences;
+         moyenneNbBasTouch += (double)maxNbBasTouch / nbrExperiences;
+         
          longueurMoyenne += (double)longueur/nbrExperiences;
       //Ajouter les compteurs de cotés à la moyenne
-      }
+         
+         
+      } //Fin de l'expérience 
+      
+      
       cout << "{" << tailleGrille << "," << longueurMoyenne << "},";
       cout << setprecision(2) << fixed << "Pour une grille de " << tailleGrille
            << " cases, " << "La longueur moyenne du parcours du robot est " 
            << longueurMoyenne << endl;
-      longueurMoyenne = 0;
+      cout << "Le bord gauche a été heurté en moyenne " << moyenneNbGaucheTouch << " fois" << endl;
+      cout << "Le bord droite a été heurté en moyenne " << moyenneNbDroiteTouch << " fois" << endl;
+      cout << "Le bord haut a été heurté en moyenne " << moyenneNbHautTouch << " fois" << endl;
+      cout << "Le bord bas a été heurté en moyenne " << moyenneNbBasTouch << " fois" << endl;
    }
    
    
    
    return EXIT_SUCCESS;
 }
+
+
+
+//               if(prevBord != direction)
+//               {
+//                  switch (direction){
+//                     case DIRECTION_GAUCHE:
+//                        if(nbGaucheTouch > maxNbGaucheTouch)
+//                        {
+//                           maxNbGaucheTouch = nbGaucheTouch;
+//                        }
+//                        nbGaucheTouch = 0;
+//                        break;
+//                     case DIRECTION_DROITE:
+//                        if(nbDroiteTouch > maxNbDroiteTouch)
+//                        {
+//                           maxNbDroiteTouch = nbDroiteTouch;
+//                        }
+//                        nbDroiteTouch = 0;
+//                        break;
+//                     case DIRECTION_HAUT:
+//                        if(nbHautTouch > maxNbHautTouch)
+//                        {
+//                           maxNbHautTouch = nbHautTouch;
+//                        }
+//                        nbHautTouch = 0;
+//                        break;
+//                     case DIRECTION_BAS:
+//                        if(nbBasTouch > maxNbBasTouch)
+//                        {
+//                           maxNbBasTouch = nbBasTouch;
+//                        }
+//                        nbBasTouch = 0;
+//                        break;
+//                  
+//                  }
+//               }

@@ -36,7 +36,7 @@ int main() {
    const unsigned int NBR_EXP_MIN = 1000;
    const unsigned int NBR_EXP_MAX = 100000;
    
-   const unsigned int TAILLE_GRILLE_MAX = 4; //50
+   const unsigned int TAILLE_GRILLE_MAX = 50; //50
    const unsigned int TAILLE_GRILLE_MIN = 2;
    const unsigned int TAILLE_GRILLE_INCREMENT = 2;
    
@@ -87,7 +87,8 @@ int main() {
    int prevBord;
    
    //Effectuer les expériences
-   for(unsigned tailleGrille = TAILLE_GRILLE_MIN; tailleGrille <= TAILLE_GRILLE_MAX; tailleGrille += TAILLE_GRILLE_INCREMENT){
+   for(unsigned tailleGrille = TAILLE_GRILLE_MIN; tailleGrille <= TAILLE_GRILLE_MAX;
+           tailleGrille += TAILLE_GRILLE_INCREMENT){
       longueurMoyenne = 0;
       moyenneNbDroiteTouch = moyenneNbGaucheTouch = moyenneNbHautTouch = moyenneNbBasTouch = 0;
       
@@ -115,10 +116,8 @@ int main() {
             }         
             
             
-            //Si nouvelle direction = bord, rebondir et incrémenter le compteur de bord
-            if(x % tailleGrille == 0 ||  y % tailleGrille == 0){
-               
-              
+            //Si le robot atteint un mur, il rebondit et la longueur est incrémentée
+            if(x % tailleGrille == 0 ||  y % tailleGrille == 0){ 
                if(prevBord != direction)
                {
                   switch(direction)
@@ -178,16 +177,9 @@ int main() {
                         {
                            maxNbBasTouch = nbBasTouch;
                         }
-                     break;
-                     
-               }
-               
-               
-               
+                     break;                
+               }          
                prevBord = direction;
-               
-               
-               
                // Incrément en cas de rebond
                ++longueur;
                
@@ -197,10 +189,10 @@ int main() {
             longueur += DISTANCE_DEPLACEMENT;
          }
          
-         cout << maxNbDroiteTouch << " " <<
+         /*cout << maxNbDroiteTouch << " " <<
        maxNbGaucheTouch << " " <<
        maxNbHautTouch<< " " <<
-       maxNbBasTouch << " - " << longueur << endl;
+       maxNbBasTouch << " - " << longueur << endl;*/
          
          moyenneNbGaucheTouch += (double)(maxNbGaucheTouch - 1) / nbrExperiences;
          moyenneNbDroiteTouch += (double)(maxNbDroiteTouch - 1)/ nbrExperiences;
@@ -214,14 +206,14 @@ int main() {
       } //Fin de l'expérience 
       
       
-      cout << "{" << tailleGrille << "," << longueurMoyenne << "},";
+      //cout << "{" << tailleGrille << "," << longueurMoyenne << "},";
       cout << setprecision(2) << fixed << "Pour une grille de " << tailleGrille
            << " cases, " << "La longueur moyenne du parcours du robot est " 
            << longueurMoyenne << endl;
-      cout << "Le bord gauche a été heurté en moyenne " << moyenneNbGaucheTouch << " fois" << endl;
-      cout << "Le bord droite a été heurté en moyenne " << moyenneNbDroiteTouch << " fois" << endl;
-      cout << "Le bord haut a été heurté en moyenne " << moyenneNbHautTouch << " fois" << endl;
-      cout << "Le bord bas a été heurté en moyenne " << moyenneNbBasTouch << " fois" << endl;
+      cout << "Le bord gauche a été heurté répétitivement en moyenne " << moyenneNbGaucheTouch << " fois" << endl;
+      cout << "Le bord droite a été heurté répétitivement en moyenne " << moyenneNbDroiteTouch << " fois" << endl;
+      cout << "Le bord haut a été heurté répétitivement en moyenne " << moyenneNbHautTouch << " fois" << endl;
+      cout << "Le bord bas a été heurté répétitivement en moyenne " << moyenneNbBasTouch << " fois" << endl << endl;
    }
    
    

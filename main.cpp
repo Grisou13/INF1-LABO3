@@ -48,7 +48,7 @@ int main() {
    
    unsigned nbrExperiences;
    
-   nbrExperiences = 1000;
+   nbrExperiences = 10000;
    //Demander à l'utilisateur d'entrer le nombre d'expériences à effectuer
    /*do{
       cout << "Veuillez entrer un nombre d'experience " 
@@ -97,8 +97,9 @@ int main() {
          longueur = 0;
          droiteTouch = gaucheTouch = hautTouch = basTouch = false;
          nbHautTouch = nbDroiteTouch = nbGaucheTouch = nbBasTouch = 0;
-         prevBord=0;
+         prevBord= 0;
          maxNbHautTouch = maxNbDroiteTouch = maxNbGaucheTouch = maxNbBasTouch = 0;
+         
          while(!(droiteTouch && gaucheTouch && hautTouch && basTouch)){
             //Déterminer direction et effectuer le déplacement
             direction = short(rand() % 4 + 1);//Nombre pseudo-aléatoire entre 1 et 4
@@ -118,25 +119,25 @@ int main() {
             
             //Si le robot atteint un mur, il rebondit et la longueur est incrémentée
             if(x % tailleGrille == 0 ||  y % tailleGrille == 0){ 
-               if(prevBord != direction)
+               if(prevBord == direction)
                {
                   switch(direction)
                   {
                      case DIRECTION_GAUCHE:
-                        nbGaucheTouch = 0;
+                        nbGaucheTouch++;
                         break;
                      case DIRECTION_DROITE:
-                        nbDroiteTouch = 0;
+                        nbDroiteTouch++;
                         break;
-                     case DIRECTION_HAUT:
-                       
-                          
-                        nbHautTouch = 0;
+                     case DIRECTION_HAUT:  
+                        nbHautTouch++;
                         break;
                      case DIRECTION_BAS:
-                        nbBasTouch = 0;
+                        nbBasTouch++;
                         break;
+                     default: break;
                   }
+                  prevBord = direction;
                }
                
                
@@ -145,38 +146,26 @@ int main() {
                   case DIRECTION_GAUCHE:
                      x += DISTANCE_DEPLACEMENT; 
                      gaucheTouch=true;
-                     nbGaucheTouch++;
-                     if(nbGaucheTouch > maxNbGaucheTouch)
-                        {
-                           maxNbGaucheTouch = nbGaucheTouch;
-                        }
+                     //nbGaucheTouch++;
+                     
                      break;
                   case DIRECTION_DROITE:
                      x -= DISTANCE_DEPLACEMENT; 
                      droiteTouch=true;
-                     nbDroiteTouch++;
-                     if(nbDroiteTouch > maxNbDroiteTouch)
-                        {
-                           maxNbDroiteTouch = nbDroiteTouch;
-                        }
+                     //nbDroiteTouch++;
+                    
                      break;
                   case DIRECTION_HAUT:
                      y -= DISTANCE_DEPLACEMENT; 
                      hautTouch=true;
-                     nbHautTouch++;
-                     if(nbHautTouch > maxNbHautTouch)
-                     {
-                           maxNbHautTouch = nbHautTouch;
-                     }
+                     //nbHautTouch++;
+                    
                      break;
                   case DIRECTION_BAS:
                      y += DISTANCE_DEPLACEMENT; 
                      basTouch=true;
-                     nbBasTouch++;
-                     if(nbBasTouch > maxNbBasTouch)
-                        {
-                           maxNbBasTouch = nbBasTouch;
-                        }
+                     //nbBasTouch++;
+                     
                      break;                
                }          
                prevBord = direction;
@@ -194,10 +183,10 @@ int main() {
        maxNbHautTouch<< " " <<
        maxNbBasTouch << " - " << longueur << endl;*/
          
-         moyenneNbGaucheTouch += (double)(maxNbGaucheTouch - 1) / nbrExperiences;
-         moyenneNbDroiteTouch += (double)(maxNbDroiteTouch - 1)/ nbrExperiences;
-         moyenneNbHautTouch += (double)(maxNbHautTouch - 1) / nbrExperiences;
-         moyenneNbBasTouch += (double)(maxNbBasTouch - 1)/ nbrExperiences;
+         moyenneNbGaucheTouch += (double)(nbGaucheTouch) / nbrExperiences;
+         moyenneNbDroiteTouch += (double)(nbDroiteTouch)/ nbrExperiences;
+         moyenneNbHautTouch += (double)(nbHautTouch) / nbrExperiences;
+         moyenneNbBasTouch += (double)(nbBasTouch)/ nbrExperiences;
          
          longueurMoyenne += (double)longueur/nbrExperiences;
       //Ajouter les compteurs de cotés à la moyenne

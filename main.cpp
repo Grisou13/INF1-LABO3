@@ -28,6 +28,7 @@
 #include <iostream>
 #include <iomanip>
 #include <climits>
+#include <cmath>
 
 using namespace std;
 
@@ -37,7 +38,7 @@ int main() {
    const unsigned int NBR_EXP_MAX = 100000;
    
    const unsigned int TAILLE_GRILLE_MAX = 50; //50
-   const unsigned int TAILLE_GRILLE_MIN = 2;
+   const unsigned int TAILLE_GRILLE_MIN = 50;
    const unsigned int TAILLE_GRILLE_INCREMENT = 2;
    
    const unsigned short DIRECTION_DROITE = 1;
@@ -58,7 +59,7 @@ int main() {
          cin.clear();
          cin.ignore(INT_MAX,'\n');
       }
-   }while(nbrExperiences <NBR_EXP_MIN || nbrExperiences > NBR_EXP_MAX); */
+   }while(nbrExperiences <NBR_EXP_MIN || nbrExperiences > NBR_EXP_MAX);*/
    
    int x,y;
    short direction; //1=gauche; 2=droite; 3=haut; 4=bas
@@ -118,7 +119,50 @@ int main() {
             
             //Si le robot atteint un mur, il rebondit et la longueur est incrémentée
             if(x % tailleGrille == 0 ||  y % tailleGrille == 0){ 
-               if(prevBord != direction)
+               //Rebondir
+               switch (direction){
+                  case DIRECTION_GAUCHE:
+                     x += DISTANCE_DEPLACEMENT; 
+                     gaucheTouch=true;
+                     if(prevBord == direction)
+                        nbGaucheTouch++;
+                     if(nbGaucheTouch > maxNbGaucheTouch)
+                        {
+                           maxNbGaucheTouch = nbGaucheTouch;
+                        }
+                     break;
+                  case DIRECTION_DROITE:
+                     x -= DISTANCE_DEPLACEMENT; 
+                     droiteTouch=true;
+                     if(prevBord == direction)
+                        nbDroiteTouch++;
+                     if(nbDroiteTouch > maxNbDroiteTouch)
+                        {
+                           maxNbDroiteTouch = nbDroiteTouch;
+                        }
+                     break;
+                  case DIRECTION_HAUT:
+                     y -= DISTANCE_DEPLACEMENT; 
+                     hautTouch=true;
+                     if(prevBord == direction)
+                        nbHautTouch++;
+                     if(nbHautTouch > maxNbHautTouch)
+                     {
+                           maxNbHautTouch = nbHautTouch;
+                     }
+                     break;
+                  case DIRECTION_BAS:
+                     y += DISTANCE_DEPLACEMENT; 
+                     basTouch=true;
+                     if(prevBord == direction)
+                        nbBasTouch++;
+                     if(nbBasTouch > maxNbBasTouch)
+                        {
+                           maxNbBasTouch = nbBasTouch;
+                        }
+                     break;                
+               }
+               /*if(prevBord != direction)
                {
                   switch(direction)
                   {
@@ -129,59 +173,16 @@ int main() {
                         nbDroiteTouch = 0;
                         break;
                      case DIRECTION_HAUT:
-                       
-                          
                         nbHautTouch = 0;
                         break;
                      case DIRECTION_BAS:
                         nbBasTouch = 0;
                         break;
                   }
-               }
-               
-               
-               //Rebondir
-               switch (direction){
-                  case DIRECTION_GAUCHE:
-                     x += DISTANCE_DEPLACEMENT; 
-                     gaucheTouch=true;
-                     nbGaucheTouch++;
-                     if(nbGaucheTouch > maxNbGaucheTouch)
-                        {
-                           maxNbGaucheTouch = nbGaucheTouch;
-                        }
-                     break;
-                  case DIRECTION_DROITE:
-                     x -= DISTANCE_DEPLACEMENT; 
-                     droiteTouch=true;
-                     nbDroiteTouch++;
-                     if(nbDroiteTouch > maxNbDroiteTouch)
-                        {
-                           maxNbDroiteTouch = nbDroiteTouch;
-                        }
-                     break;
-                  case DIRECTION_HAUT:
-                     y -= DISTANCE_DEPLACEMENT; 
-                     hautTouch=true;
-                     nbHautTouch++;
-                     if(nbHautTouch > maxNbHautTouch)
-                     {
-                           maxNbHautTouch = nbHautTouch;
-                     }
-                     break;
-                  case DIRECTION_BAS:
-                     y += DISTANCE_DEPLACEMENT; 
-                     basTouch=true;
-                     nbBasTouch++;
-                     if(nbBasTouch > maxNbBasTouch)
-                        {
-                           maxNbBasTouch = nbBasTouch;
-                        }
-                     break;                
-               }          
+               }   */  
                prevBord = direction;
                // Incrément en cas de rebond
-               ++longueur;
+               longueur += DISTANCE_DEPLACEMENT;
                
                
             }
@@ -189,31 +190,24 @@ int main() {
             longueur += DISTANCE_DEPLACEMENT;
          }
          
-         /*cout << maxNbDroiteTouch << " " <<
-       maxNbGaucheTouch << " " <<
-       maxNbHautTouch<< " " <<
-       maxNbBasTouch << " - " << longueur << endl;*/
-         
          moyenneNbGaucheTouch += (double)(maxNbGaucheTouch - 1) / nbrExperiences;
          moyenneNbDroiteTouch += (double)(maxNbDroiteTouch - 1)/ nbrExperiences;
          moyenneNbHautTouch += (double)(maxNbHautTouch - 1) / nbrExperiences;
          moyenneNbBasTouch += (double)(maxNbBasTouch - 1)/ nbrExperiences;
          
          longueurMoyenne += (double)longueur/nbrExperiences;
-      //Ajouter les compteurs de cotés à la moyenne
+        //Ajouter les compteurs de cotés à la moyenne
          
          
       } //Fin de l'expérience 
-      
-      
-      //cout << "{" << tailleGrille << "," << longueurMoyenne << "},";
+
       cout << setprecision(2) << fixed << "Pour une grille de " << tailleGrille
            << " cases, " << "La longueur moyenne du parcours du robot est " 
-           << longueurMoyenne << endl;
-      cout << "Le bord gauche a été heurté répétitivement en moyenne " << moyenneNbGaucheTouch << " fois" << endl;
-      cout << "Le bord droite a été heurté répétitivement en moyenne " << moyenneNbDroiteTouch << " fois" << endl;
-      cout << "Le bord haut a été heurté répétitivement en moyenne " << moyenneNbHautTouch << " fois" << endl;
-      cout << "Le bord bas a été heurté répétitivement en moyenne " << moyenneNbBasTouch << " fois" << endl << endl;
+           << round(longueurMoyenne) << endl;
+      cout << "Le bord gauche a été heurté répétitivement en moyenne " << round(moyenneNbGaucheTouch) << " fois" << endl;
+      cout << "Le bord droite a été heurté répétitivement en moyenne " << round(moyenneNbDroiteTouch) << " fois" << endl;
+      cout << "Le bord haut a été heurté répétitivement en moyenne " << round(moyenneNbHautTouch) << " fois" << endl;
+      cout << "Le bord bas a été heurté répétitivement en moyenne " << round(moyenneNbBasTouch) << " fois" << endl << endl;
    }
    
    

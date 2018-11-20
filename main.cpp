@@ -39,7 +39,7 @@ int main() {
    const unsigned int NBR_EXP_MAX = 100000;
    
    const unsigned int TAILLE_GRILLE_MAX = 50;
-   const unsigned int TAILLE_GRILLE_MIN = 50;
+   const unsigned int TAILLE_GRILLE_MIN = 2;
    const unsigned int TAILLE_GRILLE_INCREMENT = 2;
    
    const unsigned short DIRECTION_DROITE = 1;
@@ -50,10 +50,9 @@ int main() {
    
    unsigned nbrExperiences;
    
-   nbrExperiences = 1000;
    //Demander à l'utilisateur d'entrer le nombre d'expériences à effectuer
    do{
-      cout << "Veuillez entrer un nombre d'experiences " 
+      cout << "Veuillez entrer un nombre entier d'experiences " 
            << "(entre " << NBR_EXP_MIN << " et " << NBR_EXP_MAX << "): ";
       if (not(cin >> nbrExperiences))
       {
@@ -84,8 +83,7 @@ int main() {
           moyenneNbHautTouch,
           moyenneNbBasTouch;
    
-   int prevBord;
-   for(int i = 0; i < 1000; ++i){ //ENLEVER CETTE BOUCLE
+   int prevBord;//Indique le dernier bord touché par le robot
    //Effectuer les expériences
    for(unsigned tailleGrille = TAILLE_GRILLE_MIN; tailleGrille <= TAILLE_GRILLE_MAX;
            tailleGrille += TAILLE_GRILLE_INCREMENT){
@@ -167,7 +165,7 @@ int main() {
       } //Fin de l'expérience 
 
       cout << setprecision(2) << fixed << "Pour une grille de " << tailleGrille
-           << " cases, " << "La longueur moyenne du parcours du robot est " 
+           << " cases par cote, " << "La longueur moyenne du parcours du robot est " 
            << longueurMoyenne << endl;
       cout << "Le bord gauche a été heurté répétitivement en moyenne " 
            << moyenneNbGaucheTouch << " fois" << endl;
@@ -178,8 +176,7 @@ int main() {
       cout << "Le bord bas a été heurté répétitivement en moyenne "
            << moyenneNbBasTouch << " fois" << endl << endl;
    }
-   }
    
-   
+   system("PAUSE");
    return EXIT_SUCCESS;
 }

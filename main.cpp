@@ -29,7 +29,6 @@
 #include <iostream>
 #include <iomanip>
 #include <limits>
-#include <cmath>
 
 using namespace std;
 
@@ -52,7 +51,7 @@ int main() {
    
    //Demander à l'utilisateur d'entrer le nombre d'expériences à effectuer
    do{
-      cout << "Veuillez entrer un nombre entier d'experiences " 
+      cout << "Veuillez entrer un nombre d'experiences " 
            << "(entre " << NBR_EXP_MIN << " et " << NBR_EXP_MAX << "): ";
       if (not(cin >> nbrExperiences))
       {
@@ -118,8 +117,8 @@ int main() {
 
             //Si le robot atteint un mur, il rebondit et la longueur est incrémentée
             if(x % tailleGrille == 0 ||  y % tailleGrille == 0){
-               //Rebondir. Si le mur touché est le même que le dernier mur touché,
-               //son compteur respectif est incrémenté.
+               //Rebondir. En plus, Si le mur touché est le même que le dernier
+               //mur touché, son compteur respectif est incrémenté.
                switch (direction){
                   case DIRECTION_GAUCHE:
                      x += DISTANCE_DEPLACEMENT; 
@@ -160,7 +159,7 @@ int main() {
          moyenneNbDroiteTouch += (double)(nbDroiteTouch)/ nbrExperiences;
          moyenneNbHautTouch += (double)(nbHautTouch) / nbrExperiences;
          moyenneNbBasTouch += (double)(nbBasTouch)/ nbrExperiences; 
-         longueurMoyenne += (double)longueur/nbrExperiences;
+         longueurMoyenne += (double)longueur / nbrExperiences;
            
       } //Fin de l'expérience 
 

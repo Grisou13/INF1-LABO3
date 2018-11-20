@@ -74,11 +74,6 @@ int main() {
        nbHautTouch,
        nbBasTouch;
    
-   int maxNbDroiteTouch,
-       maxNbGaucheTouch,
-       maxNbHautTouch,
-       maxNbBasTouch;
-   
    double moyenneNbDroiteTouch,
           moyenneNbGaucheTouch,
           moyenneNbHautTouch,
@@ -208,40 +203,3 @@ int main() {
    
    return EXIT_SUCCESS;
 }
-
-
-
-//               if(prevBord != direction)
-//               {
-//                  switch (direction){
-//                     case DIRECTION_GAUCHE:
-//                        if(nbGaucheTouch > maxNbGaucheTouch)
-//                        {
-//                           maxNbGaucheTouch = nbGaucheTouch;
-//                        }
-//                        nbGaucheTouch = 0;
-//                        break;
-//                     case DIRECTION_DROITE:
-//                        if(nbDroiteTouch > maxNbDroiteTouch)
-//                        {
-//                           maxNbDroiteTouch = nbDroiteTouch;
-//                        }
-//                        nbDroiteTouch = 0;
-//                        break;
-//                     case DIRECTION_HAUT:
-//                        if(nbHautTouch > maxNbHautTouch)
-//                        {
-//                           maxNbHautTouch = nbHautTouch;
-//                        }
-//                        nbHautTouch = 0;
-//                        break;
-//                     case DIRECTION_BAS:
-//                        if(nbBasTouch > maxNbBasTouch)
-//                        {
-//                           maxNbBasTouch = nbBasTouch;
-//                        }
-//                        nbBasTouch = 0;
-//                        break;
-//                  
-//                  }
-//               }

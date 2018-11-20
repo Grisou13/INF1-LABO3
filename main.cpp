@@ -21,13 +21,14 @@
  *             c'est-à-dire que la suite de nombres générés sera toujours la même.
 
  Compilateur : g++ (Ubuntu 5.4.0-6ubuntu1~16.04.10)
+ *             
  -----------------------------------------------------------------------------------
  */
 
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
-#include <climits>
+#include <limits>
 #include <cmath>
 
 using namespace std;
@@ -57,7 +58,7 @@ int main() {
       if (not(cin >> nbrExperiences))
       {
          cin.clear();
-         cin.ignore(INT_MAX,'\n');
+         cin.ignore(numeric_limits<streamsize>::max(),'\n');
       }
    }while(nbrExperiences <NBR_EXP_MIN || nbrExperiences > NBR_EXP_MAX);*/
    
@@ -86,7 +87,7 @@ int main() {
           moyenneNbBasTouch;
    
    int prevBord;
-   
+   for(int i = 0; i < 1000; ++i){
    //Effectuer les expériences
    for(unsigned tailleGrille = TAILLE_GRILLE_MIN; tailleGrille <= TAILLE_GRILLE_MAX;
            tailleGrille += TAILLE_GRILLE_INCREMENT){
@@ -114,11 +115,11 @@ int main() {
                   y -= DISTANCE_DEPLACEMENT; break;
                default:
                   continue;
-            }         
+            }     
             
             
             //Si le robot atteint un mur, il rebondit et la longueur est incrémentée
-            if(x % tailleGrille == 0 ||  y % tailleGrille == 0){ 
+            if(x % tailleGrille == 0 ||  y % tailleGrille == 0){
                //Rebondir
                switch (direction){
                   case DIRECTION_GAUCHE:
@@ -190,10 +191,10 @@ int main() {
             longueur += DISTANCE_DEPLACEMENT;
          }
          
-         moyenneNbGaucheTouch += (double)(maxNbGaucheTouch - 1) / nbrExperiences;
-         moyenneNbDroiteTouch += (double)(maxNbDroiteTouch - 1)/ nbrExperiences;
-         moyenneNbHautTouch += (double)(maxNbHautTouch - 1) / nbrExperiences;
-         moyenneNbBasTouch += (double)(maxNbBasTouch - 1)/ nbrExperiences;
+         moyenneNbGaucheTouch += (double)(maxNbGaucheTouch) / nbrExperiences;
+         moyenneNbDroiteTouch += (double)(maxNbDroiteTouch)/ nbrExperiences;
+         moyenneNbHautTouch += (double)(maxNbHautTouch) / nbrExperiences;
+         moyenneNbBasTouch += (double)(maxNbBasTouch)/ nbrExperiences;
          
          longueurMoyenne += (double)longueur/nbrExperiences;
         //Ajouter les compteurs de cotés à la moyenne
@@ -208,6 +209,7 @@ int main() {
       cout << "Le bord droite a été heurté répétitivement en moyenne " << round(moyenneNbDroiteTouch) << " fois" << endl;
       cout << "Le bord haut a été heurté répétitivement en moyenne " << round(moyenneNbHautTouch) << " fois" << endl;
       cout << "Le bord bas a été heurté répétitivement en moyenne " << round(moyenneNbBasTouch) << " fois" << endl << endl;
+   }
    }
    
    

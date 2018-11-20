@@ -52,7 +52,7 @@ int main() {
    
    nbrExperiences = 1000;
    //Demander à l'utilisateur d'entrer le nombre d'expériences à effectuer
-   /*do{
+   do{
       cout << "Veuillez entrer un nombre d'experience " 
            << "( entre " << NBR_EXP_MIN << " et " << NBR_EXP_MAX << "): ";
       if (not(cin >> nbrExperiences))
@@ -60,7 +60,7 @@ int main() {
          cin.clear();
          cin.ignore(numeric_limits<streamsize>::max(),'\n');
       }
-   }while(nbrExperiences <NBR_EXP_MIN || nbrExperiences > NBR_EXP_MAX);*/
+   }while(nbrExperiences <NBR_EXP_MIN || nbrExperiences > NBR_EXP_MAX);
    
    int x,y;
    short direction; //1=gauche; 2=droite; 3=haut; 4=bas
@@ -75,11 +75,6 @@ int main() {
        nbGaucheTouch,
        nbHautTouch,
        nbBasTouch;
-   
-   int maxNbDroiteTouch,
-       maxNbGaucheTouch,
-       maxNbHautTouch,
-       maxNbBasTouch;
    
    double moyenneNbDroiteTouch,
           moyenneNbGaucheTouch,
@@ -100,7 +95,7 @@ int main() {
          droiteTouch = gaucheTouch = hautTouch = basTouch = false;
          nbHautTouch = nbDroiteTouch = nbGaucheTouch = nbBasTouch = 0;
          prevBord=0;
-         maxNbHautTouch = maxNbDroiteTouch = maxNbGaucheTouch = maxNbBasTouch = 0;
+         
          while(!(droiteTouch && gaucheTouch && hautTouch && basTouch)){
             //Déterminer direction et effectuer le déplacement
             direction = short(rand() % 4 + 1);//Nombre pseudo-aléatoire entre 1 et 4
@@ -127,60 +122,30 @@ int main() {
                      gaucheTouch=true;
                      if(prevBord == direction)
                         nbGaucheTouch++;
-                     if(nbGaucheTouch > maxNbGaucheTouch)
-                        {
-                           maxNbGaucheTouch = nbGaucheTouch;
-                        }
                      break;
                   case DIRECTION_DROITE:
                      x -= DISTANCE_DEPLACEMENT; 
                      droiteTouch=true;
                      if(prevBord == direction)
                         nbDroiteTouch++;
-                     if(nbDroiteTouch > maxNbDroiteTouch)
-                        {
-                           maxNbDroiteTouch = nbDroiteTouch;
-                        }
+
                      break;
                   case DIRECTION_HAUT:
                      y -= DISTANCE_DEPLACEMENT; 
                      hautTouch=true;
                      if(prevBord == direction)
                         nbHautTouch++;
-                     if(nbHautTouch > maxNbHautTouch)
-                     {
-                           maxNbHautTouch = nbHautTouch;
-                     }
+    
                      break;
                   case DIRECTION_BAS:
                      y += DISTANCE_DEPLACEMENT; 
                      basTouch=true;
                      if(prevBord == direction)
                         nbBasTouch++;
-                     if(nbBasTouch > maxNbBasTouch)
-                        {
-                           maxNbBasTouch = nbBasTouch;
-                        }
+
                      break;                
                }
-               /*if(prevBord != direction)
-               {
-                  switch(direction)
-                  {
-                     case DIRECTION_GAUCHE:
-                        nbGaucheTouch = 0;
-                        break;
-                     case DIRECTION_DROITE:
-                        nbDroiteTouch = 0;
-                        break;
-                     case DIRECTION_HAUT:
-                        nbHautTouch = 0;
-                        break;
-                     case DIRECTION_BAS:
-                        nbBasTouch = 0;
-                        break;
-                  }
-               }   */  
+                
                prevBord = direction;
                // Incrément en cas de rebond
                longueur += DISTANCE_DEPLACEMENT;
@@ -191,10 +156,10 @@ int main() {
             longueur += DISTANCE_DEPLACEMENT;
          }
          
-         moyenneNbGaucheTouch += (double)(maxNbGaucheTouch) / nbrExperiences;
-         moyenneNbDroiteTouch += (double)(maxNbDroiteTouch)/ nbrExperiences;
-         moyenneNbHautTouch += (double)(maxNbHautTouch) / nbrExperiences;
-         moyenneNbBasTouch += (double)(maxNbBasTouch)/ nbrExperiences;
+         moyenneNbGaucheTouch += (double)(nbGaucheTouch) / nbrExperiences;
+         moyenneNbDroiteTouch += (double)(nbDroiteTouch)/ nbrExperiences;
+         moyenneNbHautTouch += (double)(nbHautTouch) / nbrExperiences;
+         moyenneNbBasTouch += (double)(nbBasTouch)/ nbrExperiences;
          
          longueurMoyenne += (double)longueur/nbrExperiences;
         //Ajouter les compteurs de cotés à la moyenne
@@ -215,40 +180,3 @@ int main() {
    
    return EXIT_SUCCESS;
 }
-
-
-
-//               if(prevBord != direction)
-//               {
-//                  switch (direction){
-//                     case DIRECTION_GAUCHE:
-//                        if(nbGaucheTouch > maxNbGaucheTouch)
-//                        {
-//                           maxNbGaucheTouch = nbGaucheTouch;
-//                        }
-//                        nbGaucheTouch = 0;
-//                        break;
-//                     case DIRECTION_DROITE:
-//                        if(nbDroiteTouch > maxNbDroiteTouch)
-//                        {
-//                           maxNbDroiteTouch = nbDroiteTouch;
-//                        }
-//                        nbDroiteTouch = 0;
-//                        break;
-//                     case DIRECTION_HAUT:
-//                        if(nbHautTouch > maxNbHautTouch)
-//                        {
-//                           maxNbHautTouch = nbHautTouch;
-//                        }
-//                        nbHautTouch = 0;
-//                        break;
-//                     case DIRECTION_BAS:
-//                        if(nbBasTouch > maxNbBasTouch)
-//                        {
-//                           maxNbBasTouch = nbBasTouch;
-//                        }
-//                        nbBasTouch = 0;
-//                        break;
-//                  
-//                  }
-//               }

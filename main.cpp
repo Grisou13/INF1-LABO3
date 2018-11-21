@@ -19,6 +19,10 @@
  Remarque(s) : Le programme doit donner les mêmes résultats peu importe la machine.
  *             C'est pourquoi les nombres pseudo-aléatoires ne sont pas seedés, 
  *             c'est-à-dire que la suite de nombres générés sera toujours la même.
+ *       
+ *             La saisie utilisateur est contrôlée, mais si l'utilisateur entre un 
+ *             nombre réel situé dans l'intervalle permis, il est accepté puis 
+ *             tronqué dans sa conversion en entier.
 
  Compilateur : g++ 6.3.0 Windows
  *             
